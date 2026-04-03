@@ -1,20 +1,22 @@
 'use client';
 
 import { useAuth } from '@/contexts/auth-context';
+import { useI18n } from '@/contexts/i18n-context';
 import { useTheme } from '@/contexts/theme-context';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 
-const navItems = [
-  { href: '/campaigns', label: 'Campanhas' },
-  { href: '/profile', label: 'Perfil' },
-];
-
 export function Header() {
   const { user, logout } = useAuth();
   const { theme, toggleTheme } = useTheme();
+  const { locale, t, changeLocale } = useI18n();
   const pathname = usePathname();
   const router = useRouter();
+
+  const navItems = [
+    { href: '/campaigns', label: t.campaigns.title },
+    { href: '/profile', label: t.profile.title },
+  ];
 
   function handleLogout() {
     logout();
@@ -51,9 +53,16 @@ export function Header() {
 
         <div className="flex items-center gap-3">
           <button
+            onClick={() => changeLocale(locale === 'pt-BR' ? 'en' : 'pt-BR')}
+            className="rounded-lg px-2 py-1 text-xs font-medium text-zinc-500 transition-colors hover:bg-zinc-100 dark:text-zinc-400 dark:hover:bg-zinc-800"
+            aria-label="Alternar idioma"
+          >
+            {locale === 'pt-BR' ? 'EN' : 'PT'}
+          </button>
+          <button
             onClick={toggleTheme}
             className="rounded-lg p-2 text-zinc-500 transition-colors hover:bg-zinc-100 dark:text-zinc-400 dark:hover:bg-zinc-800"
-            aria-label="Alternar tema"
+            aria-label={t.common.toggleTheme}
           >
             {theme === 'light' ? (
               <svg
@@ -92,7 +101,7 @@ export function Header() {
             onClick={handleLogout}
             className="rounded-lg px-3 py-2 text-sm font-medium text-zinc-600 transition-colors hover:bg-zinc-100 dark:text-zinc-400 dark:hover:bg-zinc-800"
           >
-            Sair
+            {t.common.logout}
           </button>
         </div>
       </div>

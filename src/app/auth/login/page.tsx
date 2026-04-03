@@ -3,6 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useAuth } from '@/contexts/auth-context';
+import { useI18n } from '@/contexts/i18n-context';
 import { authService } from '@/services/auth.service';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -11,6 +12,7 @@ import { useState, type FormEvent } from 'react';
 export default function LoginPage() {
   const router = useRouter();
   const { login } = useAuth();
+  const { t } = useI18n();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -40,7 +42,7 @@ export default function LoginPage() {
             Wher<span className="text-blue-600">Ads</span>
           </h1>
           <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
-            Entre na sua conta
+            {t.auth.loginTitle}
           </p>
         </div>
 
@@ -53,7 +55,7 @@ export default function LoginPage() {
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <Input
             id="email"
-            label="Email"
+            label={t.auth.email}
             type="email"
             placeholder="seu@email.com"
             value={email}
@@ -63,7 +65,7 @@ export default function LoginPage() {
 
           <Input
             id="password"
-            label="Senha"
+            label={t.auth.password}
             type="password"
             placeholder="••••••"
             value={password}
@@ -72,17 +74,17 @@ export default function LoginPage() {
           />
 
           <Button type="submit" isLoading={isLoading} className="mt-2">
-            Entrar
+            {t.common.enter}
           </Button>
         </form>
 
         <p className="mt-6 text-center text-sm text-zinc-500 dark:text-zinc-400">
-          Não tem conta?{' '}
+          {t.auth.noAccount}{' '}
           <Link
             href="/auth/register"
             className="font-medium text-blue-600 hover:text-blue-700"
           >
-            Criar conta
+            {t.common.createAccount}
           </Link>
         </p>
       </div>

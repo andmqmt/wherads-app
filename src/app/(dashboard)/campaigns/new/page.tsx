@@ -2,12 +2,14 @@
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { useI18n } from '@/contexts/i18n-context';
 import { campaignService } from '@/services/campaign.service';
 import { useRouter } from 'next/navigation';
 import { useState, type FormEvent } from 'react';
 
 export default function NewCampaignPage() {
   const router = useRouter();
+  const { t } = useI18n();
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [budget, setBudget] = useState('');
@@ -41,10 +43,10 @@ export default function NewCampaignPage() {
     <div className="mx-auto max-w-2xl">
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">
-          Nova campanha
+          {t.campaigns.createTitle}
         </h1>
         <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
-          Preencha os dados da campanha
+          {t.campaigns.createSubtitle}
         </p>
       </div>
 
@@ -60,7 +62,7 @@ export default function NewCampaignPage() {
       >
         <Input
           id="name"
-          label="Nome da campanha"
+          label={t.campaigns.name}
           placeholder="Ex: Campanha Black Friday"
           value={name}
           onChange={(e) => setName(e.target.value)}
@@ -72,7 +74,7 @@ export default function NewCampaignPage() {
             htmlFor="description"
             className="text-sm font-medium text-zinc-700 dark:text-zinc-300"
           >
-            Descrição
+            {t.campaigns.description}
           </label>
           <textarea
             id="description"
@@ -86,7 +88,7 @@ export default function NewCampaignPage() {
 
         <Input
           id="budget"
-          label="Orçamento (R$)"
+          label={t.campaigns.budget}
           type="number"
           min="0"
           step="0.01"
@@ -98,14 +100,14 @@ export default function NewCampaignPage() {
         <div className="grid gap-4 sm:grid-cols-2">
           <Input
             id="startDate"
-            label="Data de início"
+            label={t.campaigns.startDate}
             type="date"
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
           />
           <Input
             id="endDate"
-            label="Data de término"
+            label={t.campaigns.endDate}
             type="date"
             value={endDate}
             onChange={(e) => setEndDate(e.target.value)}
@@ -114,14 +116,14 @@ export default function NewCampaignPage() {
 
         <div className="mt-4 flex gap-3">
           <Button type="submit" isLoading={isLoading}>
-            Criar campanha
+            {t.campaigns.newCampaign}
           </Button>
           <Button
             type="button"
             variant="secondary"
             onClick={() => router.back()}
           >
-            Cancelar
+            {t.common.cancel}
           </Button>
         </div>
       </form>

@@ -3,6 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useAuth } from '@/contexts/auth-context';
+import { useI18n } from '@/contexts/i18n-context';
 import { authService } from '@/services/auth.service';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -11,6 +12,7 @@ import { useState, type FormEvent } from 'react';
 export default function RegisterPage() {
   const router = useRouter();
   const { login } = useAuth();
+  const { t } = useI18n();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -23,12 +25,12 @@ export default function RegisterPage() {
     setError('');
 
     if (password !== confirmPassword) {
-      setError('As senhas não coincidem');
+      setError(t.auth.passwordMismatch);
       return;
     }
 
     if (password.length < 6) {
-      setError('A senha deve ter no mínimo 6 caracteres');
+      setError(t.auth.passwordMin);
       return;
     }
 
@@ -53,7 +55,7 @@ export default function RegisterPage() {
             Wher<span className="text-blue-600">Ads</span>
           </h1>
           <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
-            Crie sua conta
+            {t.auth.registerTitle}
           </p>
         </div>
 
@@ -66,7 +68,7 @@ export default function RegisterPage() {
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <Input
             id="name"
-            label="Nome"
+            label={t.auth.name}
             type="text"
             placeholder="João Silva"
             value={name}
@@ -76,7 +78,7 @@ export default function RegisterPage() {
 
           <Input
             id="email"
-            label="Email"
+            label={t.auth.email}
             type="email"
             placeholder="seu@email.com"
             value={email}
@@ -86,7 +88,7 @@ export default function RegisterPage() {
 
           <Input
             id="password"
-            label="Senha"
+            label={t.auth.password}
             type="password"
             placeholder="Mínimo 6 caracteres"
             value={password}
@@ -97,7 +99,7 @@ export default function RegisterPage() {
 
           <Input
             id="confirmPassword"
-            label="Confirmar senha"
+            label={t.auth.confirmPassword}
             type="password"
             placeholder="Repita a senha"
             value={confirmPassword}
@@ -107,17 +109,17 @@ export default function RegisterPage() {
           />
 
           <Button type="submit" isLoading={isLoading} className="mt-2">
-            Criar conta
+            {t.common.createAccount}
           </Button>
         </form>
 
         <p className="mt-6 text-center text-sm text-zinc-500 dark:text-zinc-400">
-          Já tem conta?{' '}
+          {t.auth.hasAccount}{' '}
           <Link
             href="/auth/login"
             className="font-medium text-blue-600 hover:text-blue-700"
           >
-            Entrar
+            {t.common.enter}
           </Link>
         </p>
       </div>

@@ -3,17 +3,11 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select } from '@/components/ui/select';
+import { useI18n } from '@/contexts/i18n-context';
 import { campaignService } from '@/services/campaign.service';
 import type { Campaign, CampaignStatus } from '@/types';
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState, type FormEvent } from 'react';
-
-const statusOptions = [
-  { value: 'DRAFT', label: 'Rascunho' },
-  { value: 'ACTIVE', label: 'Ativa' },
-  { value: 'PAUSED', label: 'Pausada' },
-  { value: 'COMPLETED', label: 'Concluída' },
-];
 
 function formatDateForInput(dateStr: string | null): string {
   if (!dateStr) return '';
@@ -24,6 +18,14 @@ export default function EditCampaignPage() {
   const router = useRouter();
   const params = useParams();
   const id = params.id as string;
+  const { t } = useI18n();
+
+  const statusOptions = [
+    { value: 'DRAFT', label: t.campaigns.statusDraft },
+    { value: 'ACTIVE', label: t.campaigns.statusActive },
+    { value: 'PAUSED', label: t.campaigns.statusPaused },
+    { value: 'COMPLETED', label: t.campaigns.statusCompleted },
+  ];
 
   const [campaign, setCampaign] = useState<Campaign | null>(null);
   const [name, setName] = useState('');
@@ -114,10 +116,10 @@ export default function EditCampaignPage() {
     <div className="mx-auto max-w-2xl">
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">
-          Editar campanha
+          {t.campaigns.editTitle}
         </h1>
         <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
-          Atualize os dados da campanha
+          {t.campaigns.editSubtitle}
         </p>
       </div>
 
@@ -133,7 +135,7 @@ export default function EditCampaignPage() {
       >
         <Input
           id="name"
-          label="Nome da campanha"
+          label={t.campaigns.name}
           placeholder="Ex: Campanha Black Friday"
           value={name}
           onChange={(e) => setName(e.target.value)}
@@ -145,7 +147,7 @@ export default function EditCampaignPage() {
             htmlFor="description"
             className="text-sm font-medium text-zinc-700 dark:text-zinc-300"
           >
-            Descrição
+            {t.campaigns.description}
           </label>
           <textarea
             id="description"
@@ -159,7 +161,7 @@ export default function EditCampaignPage() {
 
         <Select
           id="status"
-          label="Status"
+          label={t.campaigns.status}
           value={status}
           onChange={(e) => setStatus(e.target.value as CampaignStatus)}
           options={statusOptions}
@@ -167,7 +169,7 @@ export default function EditCampaignPage() {
 
         <Input
           id="budget"
-          label="Orçamento (R$)"
+          label={t.campaigns.budget}
           type="number"
           min="0"
           step="0.01"
@@ -179,14 +181,14 @@ export default function EditCampaignPage() {
         <div className="grid gap-4 sm:grid-cols-2">
           <Input
             id="startDate"
-            label="Data de início"
+            label={t.campaigns.startDate}
             type="date"
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
           />
           <Input
             id="endDate"
-            label="Data de término"
+            label={t.campaigns.endDate}
             type="date"
             value={endDate}
             onChange={(e) => setEndDate(e.target.value)}
@@ -195,14 +197,14 @@ export default function EditCampaignPage() {
 
         <div className="mt-4 flex gap-3">
           <Button type="submit" isLoading={isLoading}>
-            Salvar alterações
+            {t.common.save}
           </Button>
           <Button
             type="button"
             variant="secondary"
             onClick={() => router.back()}
           >
-            Cancelar
+            {t.common.cancel}
           </Button>
         </div>
       </form>

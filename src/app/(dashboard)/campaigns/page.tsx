@@ -2,12 +2,14 @@
 
 import { Button } from '@/components/ui/button';
 import { StatusBadge } from '@/components/ui/status-badge';
+import { useI18n } from '@/contexts/i18n-context';
 import { campaignService } from '@/services/campaign.service';
 import type { Campaign } from '@/types';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 export default function CampaignsPage() {
+  const { t } = useI18n();
   const [campaigns, setCampaigns] = useState<Campaign[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
@@ -21,7 +23,7 @@ export default function CampaignsPage() {
   }, []);
 
   async function handleDelete(id: string) {
-    if (!confirm('Tem certeza que deseja excluir esta campanha?')) return;
+    if (!confirm(t.campaigns.confirmDelete)) return;
 
     try {
       await campaignService.delete(id);
@@ -62,14 +64,14 @@ export default function CampaignsPage() {
       <div className="mb-8 flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">
-            Campanhas
+            {t.campaigns.title}
           </h1>
           <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
-            Gerencie suas campanhas de marketing
+            {t.campaigns.subtitle}
           </p>
         </div>
         <Link href="/campaigns/new">
-          <Button>Nova campanha</Button>
+          <Button>{t.campaigns.newCampaign}</Button>
         </Link>
       </div>
 
@@ -82,10 +84,10 @@ export default function CampaignsPage() {
       {campaigns.length === 0 ? (
         <div className="rounded-2xl border border-dashed border-zinc-300 p-12 text-center dark:border-zinc-700">
           <p className="text-zinc-500 dark:text-zinc-400">
-            Nenhuma campanha encontrada.
+            {t.campaigns.noCampaigns}
           </p>
           <Link href="/campaigns/new" className="mt-4 inline-block">
-            <Button>Criar primeira campanha</Button>
+            <Button>{t.campaigns.createFirst}</Button>
           </Link>
         </div>
       ) : (
@@ -110,7 +112,7 @@ export default function CampaignsPage() {
 
               <div className="mb-4 text-sm text-zinc-500 dark:text-zinc-400">
                 <span className="font-medium text-zinc-700 dark:text-zinc-300">
-                  Orçamento:
+                  {t.campaigns.budget}:
                 </span>{' '}
                 {new Intl.NumberFormat('pt-BR', {
                   style: 'currency',
@@ -121,14 +123,14 @@ export default function CampaignsPage() {
               <div className="flex gap-2">
                 <Link href={`/campaigns/${campaign.id}`} className="flex-1">
                   <Button variant="secondary" className="w-full">
-                    Editar
+                    {t.common.edit}
                   </Button>
                 </Link>
                 <Button
                   variant="danger"
                   onClick={() => handleDelete(campaign.id)}
                 >
-                  Excluir
+                  {t.common.delete}
                 </Button>
               </div>
             </div>
