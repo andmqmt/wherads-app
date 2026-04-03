@@ -1,0 +1,37 @@
+import type { ComponentProps } from 'react';
+
+type SelectProps = ComponentProps<'select'> & {
+  label: string;
+  error?: string;
+  options: { value: string; label: string }[];
+};
+
+export function Select({ label, error, id, options, ...props }: SelectProps) {
+  return (
+    <div className="flex flex-col gap-1.5">
+      <label
+        htmlFor={id}
+        className="text-sm font-medium text-zinc-700 dark:text-zinc-300"
+      >
+        {label}
+      </label>
+      <select
+        id={id}
+        className={`h-11 rounded-lg border px-3 text-sm transition-colors outline-none
+          ${
+            error
+              ? 'border-red-500 focus:ring-2 focus:ring-red-200'
+              : 'border-zinc-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-100'
+          }`}
+        {...props}
+      >
+        {options.map((opt) => (
+          <option key={opt.value} value={opt.value}>
+            {opt.label}
+          </option>
+        ))}
+      </select>
+      {error && <span className="text-xs text-red-500">{error}</span>}
+    </div>
+  );
+}
