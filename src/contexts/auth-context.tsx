@@ -1,15 +1,15 @@
 'use client';
 
+import { api } from '@/lib/api';
+import type { User } from '@/types';
 import {
   createContext,
-  useContext,
-  useState,
-  useEffect,
   useCallback,
+  useContext,
+  useEffect,
+  useState,
   type ReactNode,
 } from 'react';
-import type { User } from '@/types';
-import { api } from '@/lib/api';
 
 type AuthContextType = {
   user: User | null;
