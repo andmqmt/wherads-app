@@ -12,7 +12,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
           <div className="absolute bottom-[-10%] right-[30%] h-[400px] w-[400px] rounded-full bg-cyan-400/6 blur-[100px] dark:bg-cyan-500/4" />
         </div>
         <Header />
-        <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-8 sm:px-6">
+        <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-8 pb-24 sm:px-6 sm:pb-8">
           {children}
         </main>
       </div>
