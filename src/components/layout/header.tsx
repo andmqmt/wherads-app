@@ -29,7 +29,7 @@ export function Header() {
     <>
       {/* Desktop Header */}
       <header className="glass-strong sticky top-0 z-50">
-        <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6">
+        <div className="relative z-10 mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6">
           <div className="flex items-center gap-8">
             <Link href="/dashboard" className="hidden sm:block">
               <LogoFull />
@@ -113,7 +113,7 @@ export function Header() {
 
       {/* Mobile Bottom Tab Bar */}
       <nav className="glass-strong fixed bottom-0 left-0 right-0 z-50 sm:hidden">
-        <div className="flex items-center justify-around pb-[env(safe-area-inset-bottom)]">
+        <div className="relative z-10 flex items-center justify-around pb-[env(safe-area-inset-bottom)]">
           <TabItem
             href="/dashboard"
             label={t.dashboard.title}
@@ -218,7 +218,7 @@ function TabItem({
     return (
       <Link
         href={href}
-        className="flex -mt-3 h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-r from-blue-500 to-violet-500 text-white shadow-lg shadow-blue-500/25 transition-all duration-200 active:scale-95"
+        className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-r from-blue-500 to-violet-500 text-white shadow-lg shadow-blue-500/25 transition-all duration-200 active:scale-95"
       >
         {icon}
       </Link>
