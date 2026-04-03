@@ -27,7 +27,7 @@ export default function LoginPage() {
     try {
       const response = await authService.login({ email, password });
       login(response.accessToken, response.user);
-      router.push('/campaigns');
+      router.push('/dashboard');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Erro ao fazer login');
     } finally {

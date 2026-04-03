@@ -40,7 +40,7 @@ export default function RegisterPage() {
     try {
       const response = await authService.register({ name, email, password });
       login(response.accessToken, response.user);
-      router.push('/campaigns');
+      router.push('/dashboard');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Erro ao criar conta');
     } finally {

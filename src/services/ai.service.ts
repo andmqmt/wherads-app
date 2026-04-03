@@ -15,6 +15,17 @@ type GenerateDescriptionRequest = {
   budget?: number;
 };
 
+type CampaignSummaryItem = {
+  name: string;
+  status: string;
+  budget: number;
+  description?: string;
+};
+
+type GenerateSummaryRequest = {
+  campaigns: CampaignSummaryItem[];
+};
+
 export const aiService = {
   getStatus: () => api.get<{ available: boolean }>('/ai/status'),
 
@@ -23,4 +34,7 @@ export const aiService = {
 
   generateDescription: (data: GenerateDescriptionRequest) =>
     api.post<{ description: string }>('/ai/generate-description', data),
+
+  generateSummary: (data: GenerateSummaryRequest) =>
+    api.post<{ summary: string; tips: string[] }>('/ai/summary', data),
 };

@@ -13,6 +13,7 @@ export default function CampaignsPage() {
   const [campaigns, setCampaigns] = useState<Campaign[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
+  const [now] = useState(() => Date.now());
 
   useEffect(() => {
     campaignService
@@ -74,49 +75,104 @@ export default function CampaignsPage() {
         </div>
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {campaigns.map((campaign) => (
-            <div
-              key={campaign.id}
-              className="glass noise group rounded-2xl p-6 transition-all duration-200 hover:shadow-lg hover:shadow-blue-500/5"
-            >
-              <div className="mb-3 flex items-start justify-between">
-                <h3 className="font-semibold text-zinc-900 dark:text-zinc-50">
-                  {campaign.name}
-                </h3>
-                <StatusBadge status={campaign.status} />
-              </div>
+          {campaigns.map((campaign) => {
+            const hasDateRange = campaign.startDate && campaign.endDate;
+            const progress = hasDateRange
+              ? Math.min(
+                  100,
+                  Math.max(
+                    0,
+                    ((now - new Date(campaign.startDate!).getTime()) /
+                      (new Date(campaign.endDate!).getTime() -
+                        new Date(campaign.startDate!).getTime())) *
+                      100,
+                  ),
+                )
+              : null;
 
-              {campaign.description && (
-                <p className="mb-4 line-clamp-2 text-sm text-zinc-500 dark:text-zinc-400">
-                  {campaign.description}
-                </p>
-              )}
+            return (
+              <Link
+                key={campaign.id}
+                href={`/campaigns/${campaign.id}`}
+                className="glass noise group flex flex-col rounded-2xl p-6 transition-all duration-200 hover:shadow-lg hover:shadow-blue-500/5"
+              >
+                <div className="mb-3 flex items-start justify-between">
+                  <h3 className="font-semibold text-zinc-900 group-hover:text-blue-600 dark:text-zinc-50 dark:group-hover:text-blue-400">
+                    {campaign.name}
+                  </h3>
+                  <StatusBadge status={campaign.status} />
+                </div>
 
-              <div className="mb-4 text-sm text-zinc-500 dark:text-zinc-400">
-                <span className="font-medium text-zinc-700 dark:text-zinc-300">
-                  {t.campaigns.budget}:
-                </span>{' '}
-                {new Intl.NumberFormat('pt-BR', {
-                  style: 'currency',
-                  currency: 'BRL',
-                }).format(campaign.budget)}
-              </div>
+                {campaign.description && (
+                  <p className="mb-3 line-clamp-2 text-sm text-zinc-500 dark:text-zinc-400">
+                    {campaign.description}
+                  </p>
+                )}
 
-              <div className="flex gap-2">
-                <Link href={`/campaigns/${campaign.id}`} className="flex-1">
-                  <Button variant="secondary" className="w-full">
+                <div className="mt-auto flex flex-col gap-3 border-t border-zinc-200/50 pt-3 dark:border-white/5">
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-zinc-500 dark:text-zinc-400">
+                      {t.campaigns.budget}
+                    </span>
+                    <span className="font-semibold text-zinc-900 dark:text-zinc-50">
+                      {new Intl.NumberFormat('pt-BR', {
+                        style: 'currency',
+                        currency: 'BRL',
+                      }).format(campaign.budget)}
+                    </span>
+                  </div>
+
+                  {hasDateRange && (
+                    <div className="flex flex-col gap-1.5">
+                      <div className="flex items-center justify-between text-xs text-zinc-400">
+                        <span>
+                          {new Date(campaign.startDate!).toLocaleDateString(
+                            'pt-BR',
+                            {
+                              day: '2-digit',
+                              month: 'short',
+                            },
+                          )}
+                        </span>
+                        <span>
+                          {new Date(campaign.endDate!).toLocaleDateString(
+                            'pt-BR',
+                            {
+                              day: '2-digit',
+                              month: 'short',
+                            },
+                          )}
+                        </span>
+                      </div>
+                      <div className="h-1.5 overflow-hidden rounded-full bg-zinc-100 dark:bg-zinc-800">
+                        <div
+                          className="h-full rounded-full bg-gradient-to-r from-blue-500 to-violet-500 transition-all duration-500"
+                          style={{
+                            width: `${progress}%`,
+                          }}
+                        />
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                <div className="mt-3 flex gap-2">
+                  <span className="flex-1 rounded-xl border border-zinc-200/60 bg-white/30 py-2 text-center text-sm font-medium text-zinc-600 transition-all group-hover:border-blue-500/30 group-hover:text-blue-600 dark:border-white/10 dark:bg-white/5 dark:text-zinc-400 dark:group-hover:text-blue-400">
                     {t.common.edit}
-                  </Button>
-                </Link>
-                <Button
-                  variant="danger"
-                  onClick={() => handleDelete(campaign.id)}
-                >
-                  {t.common.delete}
-                </Button>
-              </div>
-            </div>
-          ))}
+                  </span>
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleDelete(campaign.id);
+                    }}
+                    className="rounded-xl bg-red-500/10 px-4 py-2 text-sm font-medium text-red-600 transition-colors hover:bg-red-500/20 dark:text-red-400"
+                  >
+                    {t.common.delete}
+                  </button>
+                </div>
+              </Link>
+            );
+          })}
         </div>
       )}
     </div>

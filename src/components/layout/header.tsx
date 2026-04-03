@@ -15,6 +15,7 @@ export function Header() {
   const router = useRouter();
 
   const navItems = [
+    { href: '/dashboard', label: t.dashboard.title },
     { href: '/campaigns', label: t.campaigns.title },
     { href: '/profile', label: t.profile.title },
   ];
@@ -28,7 +29,7 @@ export function Header() {
     <header className="glass-strong sticky top-0 z-50">
       <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6">
         <div className="flex items-center gap-8">
-          <Link href="/campaigns">
+          <Link href="/dashboard">
             <LogoFull />
           </Link>
 
