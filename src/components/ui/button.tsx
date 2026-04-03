@@ -7,11 +7,10 @@ type ButtonProps = ComponentProps<'button'> & {
 
 const variants = {
   primary:
-    'bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-200 disabled:bg-blue-400',
-  secondary:
-    'bg-zinc-100 text-zinc-700 hover:bg-zinc-200 focus:ring-zinc-200 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700',
+    'bg-gradient-to-r from-blue-500 to-violet-500 text-white shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30 hover:brightness-110 active:brightness-95',
+  secondary: 'glass text-zinc-700 hover:bg-surface-hover dark:text-zinc-300',
   danger:
-    'bg-red-600 text-white hover:bg-red-700 focus:ring-red-200 disabled:bg-red-400',
+    'bg-red-500/90 text-white hover:bg-red-500 shadow-lg shadow-red-500/20',
 };
 
 export function Button({
@@ -23,7 +22,7 @@ export function Button({
 }: ButtonProps) {
   return (
     <button
-      className={`flex h-11 items-center justify-center rounded-lg px-6 text-sm font-medium transition-colors focus:ring-2 outline-none disabled:cursor-not-allowed ${variants[variant]}`}
+      className={`flex h-11 items-center justify-center rounded-xl px-6 text-sm font-medium transition-all duration-200 outline-none disabled:cursor-not-allowed disabled:opacity-50 ${variants[variant]}`}
       disabled={disabled || isLoading}
       {...props}
     >

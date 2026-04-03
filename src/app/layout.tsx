@@ -19,6 +19,10 @@ export const metadata: Metadata = {
   title: 'WherAds - Insights de Comportamento do Consumidor',
   description:
     'Plataforma de insights sobre comportamento do consumidor com IA para campanhas de marketing mais eficazes',
+  icons: {
+    icon: '/favicon.svg',
+    apple: '/apple-touch-icon.svg',
+  },
 };
 
 export default function RootLayout({

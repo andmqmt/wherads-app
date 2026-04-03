@@ -4,12 +4,10 @@ import { useI18n } from '@/contexts/i18n-context';
 import type { CampaignStatus } from '@/types';
 
 const statusClassName: Record<CampaignStatus, string> = {
-  DRAFT: 'bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300',
-  ACTIVE:
-    'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400',
-  PAUSED:
-    'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400',
-  COMPLETED: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400',
+  DRAFT: 'bg-zinc-500/10 text-zinc-600 dark:text-zinc-400',
+  ACTIVE: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400',
+  PAUSED: 'bg-amber-500/10 text-amber-600 dark:text-amber-400',
+  COMPLETED: 'bg-blue-500/10 text-blue-600 dark:text-blue-400',
 };
 
 const statusKey: Record<

@@ -42,6 +42,13 @@ async function request<T>(
     );
   }
 
+  if (
+    response.status === 204 ||
+    response.headers.get('content-length') === '0'
+  ) {
+    return undefined as T;
+  }
+
   return response.json() as Promise<T>;
 }
 
@@ -54,9 +61,6 @@ export const api = {
     body: unknown,
     headers?: Record<string, string>,
   ) => request<T>(endpoint, { method: 'POST', body, headers }),
-
-  put: <T>(endpoint: string, body: unknown, headers?: Record<string, string>) =>
-    request<T>(endpoint, { method: 'PUT', body, headers }),
 
   patch: <T>(
     endpoint: string,
