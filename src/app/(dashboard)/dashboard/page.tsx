@@ -8,7 +8,7 @@ import { aiService } from '@/services/ai.service';
 import { campaignService } from '@/services/campaign.service';
 import type { Campaign, CampaignStatus } from '@/types';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 const STATUS_COLORS: Record<CampaignStatus, string> = {
   ACTIVE: '#34d399',
@@ -38,7 +38,7 @@ export default function DashboardPage() {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [aiError, setAiError] = useState('');
 
-  useEffect(() => {
+  const fetchData = useCallback(() => {
     Promise.all([
       campaignService.list(),
       aiService.getStatus().catch(() => ({ available: false })),
@@ -49,6 +49,13 @@ export default function DashboardPage() {
       })
       .finally(() => setIsLoading(false));
   }, []);
+
+  useEffect(() => {
+    fetchData();
+    const onFocus = () => fetchData();
+    window.addEventListener('focus', onFocus);
+    return () => window.removeEventListener('focus', onFocus);
+  }, [fetchData]);
 
   const totalBudget = campaigns.reduce((s, c) => s + c.budget, 0);
   const statusCounts = campaigns.reduce(

@@ -90,6 +90,7 @@ export default function EditCampaignPage() {
         startDate: startDate ? new Date(startDate).toISOString() : undefined,
         endDate: endDate ? new Date(endDate).toISOString() : undefined,
       });
+      router.refresh();
       router.push('/campaigns');
     } catch (err) {
       setError(

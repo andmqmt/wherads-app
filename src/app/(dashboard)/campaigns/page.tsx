@@ -6,7 +6,7 @@ import { useI18n } from '@/contexts/i18n-context';
 import { campaignService } from '@/services/campaign.service';
 import type { Campaign } from '@/types';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 export default function CampaignsPage() {
   const { t } = useI18n();
@@ -15,13 +15,20 @@ export default function CampaignsPage() {
   const [error, setError] = useState('');
   const [now] = useState(() => Date.now());
 
-  useEffect(() => {
+  const fetchCampaigns = useCallback(() => {
     campaignService
       .list()
       .then(setCampaigns)
       .catch((err: Error) => setError(err.message))
       .finally(() => setIsLoading(false));
   }, []);
+
+  useEffect(() => {
+    fetchCampaigns();
+    const onFocus = () => fetchCampaigns();
+    window.addEventListener('focus', onFocus);
+    return () => window.removeEventListener('focus', onFocus);
+  }, [fetchCampaigns]);
 
   async function handleDelete(id: string) {
     if (!confirm(t.campaigns.confirmDelete)) return;

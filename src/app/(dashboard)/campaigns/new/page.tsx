@@ -51,6 +51,7 @@ export default function NewCampaignPage() {
         startDate: startDate ? new Date(startDate).toISOString() : undefined,
         endDate: endDate ? new Date(endDate).toISOString() : undefined,
       });
+      router.refresh();
       router.push('/campaigns');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Erro ao criar campanha');
