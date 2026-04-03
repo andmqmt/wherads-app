@@ -171,13 +171,13 @@ function LineChart({
 }
 
 function HealthScoreRing({ score }: { score: number }) {
-  const r = 40;
+  const r = 36;
   const circumference = 2 * Math.PI * r;
   const offset = circumference - (score / 100) * circumference;
   const color = score >= 70 ? '#10B981' : score >= 40 ? '#F59E0B' : '#EF4444';
 
   return (
-    <svg viewBox="0 0 100 100" className="h-28 w-28">
+    <svg viewBox="0 0 100 100" className="h-24 w-24">
       <circle
         cx="50"
         cy="50"
@@ -185,7 +185,7 @@ function HealthScoreRing({ score }: { score: number }) {
         fill="none"
         stroke="currentColor"
         className="text-zinc-100 dark:text-zinc-800"
-        strokeWidth="8"
+        strokeWidth="7"
       />
       <circle
         cx="50"
@@ -193,7 +193,7 @@ function HealthScoreRing({ score }: { score: number }) {
         r={r}
         fill="none"
         stroke={color}
-        strokeWidth="8"
+        strokeWidth="7"
         strokeLinecap="round"
         strokeDasharray={circumference}
         strokeDashoffset={offset}
@@ -202,15 +202,16 @@ function HealthScoreRing({ score }: { score: number }) {
       />
       <text
         x="50"
-        y="46"
+        y="47"
         textAnchor="middle"
-        className="fill-zinc-900 text-xl font-bold dark:fill-white"
+        dominantBaseline="central"
+        className="fill-zinc-900 text-lg font-bold dark:fill-white"
       >
         {score}
       </text>
       <text
         x="50"
-        y="60"
+        y="62"
         textAnchor="middle"
         className="fill-zinc-400 text-[8px]"
       >
@@ -273,8 +274,8 @@ export default function KpisPage() {
   }
 
   return (
-    <div className="mx-auto max-w-6xl">
-      <div className="mb-8 flex items-center justify-between">
+    <div>
+      <div className="mb-6 flex flex-col gap-3 sm:mb-8 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">
             {t.kpis.title}
@@ -335,81 +336,79 @@ export default function KpisPage() {
           </p>
         </div>
       ) : (
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-5">
           {/* Overview + Health Score */}
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-            <div className="glass flex flex-col items-center justify-center rounded-2xl p-6 lg:col-span-1">
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+            <div className="glass col-span-2 flex items-center gap-4 rounded-2xl p-5 sm:col-span-1 sm:flex-col sm:justify-center sm:gap-2">
               <HealthScoreRing score={kpis.overview.healthScore} />
-              <p className="mt-2 text-xs font-medium text-zinc-500 dark:text-zinc-400">
+              <p className="text-xs font-medium text-zinc-500 dark:text-zinc-400">
                 {t.kpis.healthScore}
               </p>
             </div>
-            <div className="grid grid-cols-2 gap-4 lg:col-span-4">
-              {[
-                {
-                  label: t.kpis.totalBudget,
-                  value: `R$ ${kpis.overview.totalBudget.toLocaleString()}`,
-                  color: 'from-blue-500 to-blue-600',
-                },
-                {
-                  label: t.kpis.activeCampaigns,
-                  value: kpis.overview.activeCampaigns.toString(),
-                  color: 'from-green-500 to-green-600',
-                },
-                {
-                  label: t.kpis.avgBudget,
-                  value: `R$ ${kpis.overview.avgBudget.toLocaleString()}`,
-                  color: 'from-violet-500 to-violet-600',
-                },
-                {
-                  label: t.kpis.totalCampaigns,
-                  value: campaigns.length.toString(),
-                  color: 'from-amber-500 to-amber-600',
-                },
-              ].map((stat) => (
+            {[
+              {
+                label: t.kpis.totalBudget,
+                value: `R$ ${kpis.overview.totalBudget.toLocaleString()}`,
+                color: 'from-blue-500 to-blue-600',
+              },
+              {
+                label: t.kpis.activeCampaigns,
+                value: kpis.overview.activeCampaigns.toString(),
+                color: 'from-green-500 to-green-600',
+              },
+              {
+                label: t.kpis.avgBudget,
+                value: `R$ ${kpis.overview.avgBudget.toLocaleString()}`,
+                color: 'from-violet-500 to-violet-600',
+              },
+              {
+                label: t.kpis.totalCampaigns,
+                value: campaigns.length.toString(),
+                color: 'from-amber-500 to-amber-600',
+              },
+            ].map((stat) => (
+              <div
+                key={stat.label}
+                className="glass flex flex-col justify-between rounded-2xl p-4 sm:p-5"
+              >
+                <p className="text-[11px] font-medium text-zinc-500 dark:text-zinc-400">
+                  {stat.label}
+                </p>
+                <p className="mt-2 text-xl font-bold text-zinc-900 sm:text-2xl dark:text-white">
+                  {stat.value}
+                </p>
                 <div
-                  key={stat.label}
-                  className="glass flex flex-col rounded-2xl p-5"
-                >
-                  <p className="text-xs font-medium text-zinc-500 dark:text-zinc-400">
-                    {stat.label}
-                  </p>
-                  <p className="mt-1 text-2xl font-bold text-zinc-900 dark:text-white">
-                    {stat.value}
-                  </p>
-                  <div
-                    className={`mt-2 h-1 w-12 rounded-full bg-gradient-to-r ${stat.color}`}
-                  />
-                </div>
-              ))}
-            </div>
+                  className={`mt-3 h-1 w-10 rounded-full bg-gradient-to-r ${stat.color}`}
+                />
+              </div>
+            ))}
           </div>
 
           {/* Metrics Grid */}
-          <div className="glass rounded-2xl p-6">
-            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
+          <div className="glass rounded-2xl p-5 sm:p-6">
+            <h3 className="mb-4 text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
               {t.kpis.metricsTitle}
             </h3>
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
               {kpis.metrics.map((m, i) => (
                 <div
                   key={i}
-                  className="rounded-xl border border-zinc-200/50 bg-white/30 p-4 dark:border-white/5 dark:bg-white/5"
+                  className="rounded-xl border border-zinc-200/50 bg-white/30 p-3.5 dark:border-white/5 dark:bg-white/5"
                 >
-                  <div className="flex items-center justify-between">
-                    <p className="text-xs font-medium text-zinc-400">
+                  <div className="flex items-start justify-between gap-2">
+                    <p className="text-[11px] font-medium leading-tight text-zinc-400">
                       {m.name}
                     </p>
                     <span
-                      className={`text-xs font-semibold ${TREND_COLORS[m.trend]}`}
+                      className={`shrink-0 text-[11px] font-semibold ${TREND_COLORS[m.trend]}`}
                     >
                       {TREND_ICONS[m.trend]} {m.trendValue}
                     </span>
                   </div>
-                  <p className="mt-1 text-xl font-bold text-zinc-900 dark:text-white">
+                  <p className="mt-1.5 text-lg font-bold text-zinc-900 dark:text-white">
                     {m.value}
                   </p>
-                  <p className="mt-1 text-[10px] text-zinc-400">
+                  <p className="mt-1 line-clamp-2 text-[10px] leading-tight text-zinc-400">
                     {m.description}
                   </p>
                 </div>
@@ -420,18 +419,20 @@ export default function KpisPage() {
           {/* Trend Charts */}
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {kpis.trendData.map((chart, i) => (
-              <div key={i} className="glass rounded-2xl p-5">
+              <div key={i} className="glass rounded-2xl p-5 sm:p-6">
                 <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
                   {chart.label}
                 </h4>
-                <LineChart series={chart.series} labels={chart.labels} />
+                <div className="mt-1">
+                  <LineChart series={chart.series} labels={chart.labels} />
+                </div>
               </div>
             ))}
           </div>
 
           {/* Projections */}
-          <div className="glass rounded-2xl p-6">
-            <h3 className="mb-4 flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
+          <div className="glass rounded-2xl p-5 sm:p-6">
+            <h3 className="mb-4 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
               <svg
                 className="h-4 w-4"
                 viewBox="0 0 24 24"
@@ -451,49 +452,51 @@ export default function KpisPage() {
               {kpis.projections.map((p, i) => (
                 <div
                   key={i}
-                  className="flex flex-col gap-2 rounded-xl border border-zinc-200/50 bg-white/30 p-4 sm:flex-row sm:items-center sm:justify-between dark:border-white/5 dark:bg-white/5"
+                  className="rounded-xl border border-zinc-200/50 bg-white/30 p-4 dark:border-white/5 dark:bg-white/5"
                 >
-                  <div className="flex-1">
-                    <p className="font-medium text-zinc-900 dark:text-zinc-100">
-                      {p.metric}
-                    </p>
-                    <p className="text-xs text-zinc-400">{p.timeframe}</p>
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <div className="text-right">
-                      <p className="text-[10px] text-zinc-400">
-                        {t.kpis.current}
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate text-sm font-medium text-zinc-900 dark:text-zinc-100">
+                        {p.metric}
                       </p>
-                      <p className="text-sm font-medium text-zinc-600 dark:text-zinc-300">
-                        {p.current}
-                      </p>
+                      <p className="text-[11px] text-zinc-400">{p.timeframe}</p>
                     </div>
-                    <svg
-                      className="h-4 w-4 text-zinc-300 dark:text-zinc-600"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-                      />
-                    </svg>
-                    <div className="text-right">
-                      <p className="text-[10px] text-zinc-400">
-                        {t.kpis.projected}
-                      </p>
-                      <p className="text-sm font-bold text-zinc-900 dark:text-white">
-                        {p.projected}
-                      </p>
+                    <div className="flex items-center gap-3 sm:gap-4">
+                      <div className="min-w-0">
+                        <p className="text-[10px] text-zinc-400">
+                          {t.kpis.current}
+                        </p>
+                        <p className="truncate text-sm font-medium text-zinc-600 dark:text-zinc-300">
+                          {p.current}
+                        </p>
+                      </div>
+                      <svg
+                        className="h-3.5 w-3.5 shrink-0 text-zinc-300 dark:text-zinc-600"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                        />
+                      </svg>
+                      <div className="min-w-0">
+                        <p className="text-[10px] text-zinc-400">
+                          {t.kpis.projected}
+                        </p>
+                        <p className="truncate text-sm font-bold text-zinc-900 dark:text-white">
+                          {p.projected}
+                        </p>
+                      </div>
+                      <span
+                        className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-medium ${CONFIDENCE_COLORS[p.confidence] ?? 'bg-zinc-500/10 text-zinc-500'}`}
+                      >
+                        {p.confidence}
+                      </span>
                     </div>
-                    <span
-                      className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${CONFIDENCE_COLORS[p.confidence] ?? 'bg-zinc-500/10 text-zinc-500'}`}
-                    >
-                      {p.confidence}
-                    </span>
                   </div>
                 </div>
               ))}
@@ -501,8 +504,8 @@ export default function KpisPage() {
           </div>
 
           {/* Recommendations */}
-          <div className="glass rounded-2xl p-6">
-            <h3 className="mb-4 flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
+          <div className="glass rounded-2xl p-5 sm:p-6">
+            <h3 className="mb-4 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
               <svg
                 className="h-4 w-4"
                 viewBox="0 0 24 24"
@@ -518,16 +521,16 @@ export default function KpisPage() {
               </svg>
               {t.kpis.recommendations}
             </h3>
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2.5">
               {kpis.recommendations.map((rec, i) => (
                 <div
                   key={i}
-                  className="flex items-start gap-3 rounded-xl border border-zinc-200/50 bg-white/30 p-4 dark:border-white/5 dark:bg-white/5"
+                  className="flex items-start gap-3 rounded-xl border border-zinc-200/50 bg-white/30 p-3.5 dark:border-white/5 dark:bg-white/5"
                 >
-                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-blue-500 to-violet-500 text-[10px] font-bold text-white">
+                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-blue-500 to-violet-500 text-[9px] font-bold text-white">
                     {i + 1}
                   </span>
-                  <p className="text-sm text-zinc-700 dark:text-zinc-300">
+                  <p className="text-sm leading-relaxed text-zinc-700 dark:text-zinc-300">
                     {rec}
                   </p>
                 </div>
@@ -535,7 +538,7 @@ export default function KpisPage() {
             </div>
           </div>
 
-          <p className="text-center text-[10px] text-zinc-300 dark:text-zinc-600">
+          <p className="pb-2 text-center text-[10px] text-zinc-300 dark:text-zinc-600">
             {t.ai.poweredBy}
           </p>
         </div>
