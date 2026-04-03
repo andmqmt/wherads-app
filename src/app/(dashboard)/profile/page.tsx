@@ -20,7 +20,7 @@ export default function ProfilePage() {
         </p>
       </div>
 
-      <div className="glass noise rounded-2xl p-6">
+      <div className="glass rounded-2xl p-6">
         <div className="flex flex-col gap-4">
           <div>
             <span className="text-xs font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400">

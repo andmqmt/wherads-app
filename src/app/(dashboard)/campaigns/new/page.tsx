@@ -78,7 +78,7 @@ export default function NewCampaignPage() {
 
       <form
         onSubmit={handleSubmit}
-        className="glass noise flex flex-col gap-4 rounded-2xl p-6"
+        className="glass flex flex-col gap-4 rounded-2xl p-6"
       >
         <Input
           id="name"

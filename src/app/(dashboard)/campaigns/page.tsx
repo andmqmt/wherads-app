@@ -65,7 +65,7 @@ export default function CampaignsPage() {
       )}
 
       {campaigns.length === 0 ? (
-        <div className="glass noise rounded-2xl border border-dashed border-zinc-300/50 p-12 text-center dark:border-zinc-700/50">
+        <div className="glass rounded-2xl border border-dashed border-zinc-300/50 p-12 text-center dark:border-zinc-700/50">
           <p className="text-zinc-500 dark:text-zinc-400">
             {t.campaigns.noCampaigns}
           </p>
@@ -94,7 +94,7 @@ export default function CampaignsPage() {
               <Link
                 key={campaign.id}
                 href={`/campaigns/${campaign.id}`}
-                className="glass noise group flex flex-col rounded-2xl p-6 transition-all duration-200 hover:shadow-lg hover:shadow-blue-500/5"
+                className="glass group flex flex-col rounded-2xl p-6 transition-all duration-300 hover:scale-[1.01] hover:shadow-lg hover:shadow-black/5"
               >
                 <div className="mb-3 flex items-start justify-between">
                   <h3 className="font-semibold text-zinc-900 group-hover:text-blue-600 dark:text-zinc-50 dark:group-hover:text-blue-400">

@@ -135,7 +135,7 @@ export default function EditCampaignPage() {
 
       <form
         onSubmit={handleSubmit}
-        className="glass noise flex flex-col gap-4 rounded-2xl p-6"
+        className="glass flex flex-col gap-4 rounded-2xl p-6"
       >
         <Input
           id="name"
@@ -231,7 +231,7 @@ export default function EditCampaignPage() {
       </form>
 
       {insights && (
-        <div className="glass noise mt-6 rounded-2xl border border-blue-500/20 p-6">
+        <div className="glass mt-6 rounded-2xl border border-blue-500/20 p-6">
           <div className="mb-4 flex items-center justify-between">
             <h2 className="flex items-center gap-2 text-lg font-semibold text-zinc-900 dark:text-zinc-100">
               <svg

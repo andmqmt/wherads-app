@@ -55,7 +55,7 @@ export default function RegisterPage() {
         <div className="absolute -bottom-32 right-1/4 h-[350px] w-[350px] rounded-full bg-blue-500/8 blur-[80px]" />
       </div>
 
-      <div className="glass noise relative w-full max-w-md rounded-2xl p-8 shadow-xl shadow-black/5 dark:shadow-black/20">
+      <div className="glass relative w-full max-w-md rounded-2xl p-8 shadow-xl shadow-black/5 dark:shadow-black/20">
         <div className="mb-8 text-center">
           <div className="mb-4 flex justify-center">
             <Logo size={40} />
