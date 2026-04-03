@@ -12,11 +12,30 @@ export default function NewCampaignPage() {
   const { t } = useI18n();
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
+  const [keywords, setKeywords] = useState('');
   const [budget, setBudget] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
+
+  async function handleGenerateDescription() {
+    if (!name.trim()) return;
+    setIsGenerating(true);
+    try {
+      const result = await aiService.generateDescription({
+        campaignName: name,
+        keywords: keywords || undefined,
+        budget: budget ? Number(budget) : undefined,
+      });
+      setDescription(result.description);
+    } catch {
+      setError(t.ai.unavailable);
+    } finally {
+      setIsGenerating(false);
+    }
+  }
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -70,12 +89,38 @@ export default function NewCampaignPage() {
         />
 
         <div className="flex flex-col gap-1.5">
-          <label
-            htmlFor="description"
-            className="text-sm font-medium text-zinc-700 dark:text-zinc-300"
-          >
-            {t.campaigns.description}
-          </label>
+          <div className="flex items-center justify-between">
+            <label
+              htmlFor="description"
+              className="text-sm font-medium text-zinc-700 dark:text-zinc-300"
+            >
+              {t.campaigns.description}
+            </label>
+            <button
+              type="button"
+              onClick={handleGenerateDescription}
+              disabled={!name.trim() || isGenerating}
+              className="flex items-center gap-1.5 rounded-lg bg-purple-50 px-3 py-1 text-xs font-medium text-purple-700 transition-colors hover:bg-purple-100 disabled:opacity-50 dark:bg-purple-900/20 dark:text-purple-400 dark:hover:bg-purple-900/30"
+            >
+              <svg
+                className="h-3.5 w-3.5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
+                <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
+              </svg>
+              {isGenerating ? t.ai.generating : t.ai.generateDescription}
+            </button>
+          </div>
+          <Input
+            id="keywords"
+            label={t.ai.keywords}
+            placeholder={t.ai.keywordsPlaceholder}
+            value={keywords}
+            onChange={(e) => setKeywords(e.target.value)}
+          />
           <textarea
             id="description"
             rows={3}

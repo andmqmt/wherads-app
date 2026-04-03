@@ -50,6 +50,16 @@ export const dictionaries = {
       statusPaused: 'Pausada',
       statusCompleted: 'Concluída',
     },
+    ai: {
+      generateDescription: 'Gerar com IA',
+      generateInsights: 'Insights com IA',
+      generating: 'Gerando...',
+      keywords: 'Palavras-chave (opcional)',
+      keywordsPlaceholder: 'ex: eletrônicos, jovens, desconto',
+      insightsTitle: 'Insights da IA',
+      unavailable: 'Serviço de IA indisponível',
+      close: 'Fechar',
+    },
     profile: {
       title: 'Perfil',
       subtitle: 'Informações da sua conta',
@@ -106,6 +116,16 @@ export const dictionaries = {
       statusActive: 'Active',
       statusPaused: 'Paused',
       statusCompleted: 'Completed',
+    },
+    ai: {
+      generateDescription: 'Generate with AI',
+      generateInsights: 'AI Insights',
+      generating: 'Generating...',
+      keywords: 'Keywords (optional)',
+      keywordsPlaceholder: 'e.g. electronics, young adults, discount',
+      insightsTitle: 'AI Insights',
+      unavailable: 'AI service unavailable',
+      close: 'Close',
     },
     profile: {
       title: 'Profile',
