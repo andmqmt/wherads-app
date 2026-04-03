@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select } from '@/components/ui/select';
 import { useI18n } from '@/contexts/i18n-context';
+import { markdownToHtml } from '@/lib/markdown';
 import { aiService } from '@/services/ai.service';
 import { campaignService } from '@/services/campaign.service';
 import type { Campaign, CampaignStatus } from '@/types';
@@ -254,23 +255,10 @@ export default function EditCampaignPage() {
               {t.ai.close}
             </button>
           </div>
-          <div className="prose prose-sm max-w-none text-zinc-700 dark:text-zinc-300 [&_strong]:text-zinc-900 dark:[&_strong]:text-zinc-100 [&_h1]:text-base [&_h1]:font-semibold [&_h1]:text-zinc-900 dark:[&_h1]:text-zinc-100 [&_h2]:text-sm [&_h2]:font-semibold [&_h2]:text-zinc-900 dark:[&_h2]:text-zinc-100 [&_h3]:text-sm [&_h3]:font-medium [&_h3]:text-zinc-800 dark:[&_h3]:text-zinc-200 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:my-0.5 [&_code]:rounded [&_code]:bg-zinc-100 [&_code]:px-1 [&_code]:py-0.5 [&_code]:text-xs dark:[&_code]:bg-zinc-800">
+          <div className="prose prose-sm max-w-none text-zinc-700 dark:text-zinc-300 [&_strong]:text-zinc-900 dark:[&_strong]:text-zinc-100 [&_h1]:text-base [&_h1]:font-semibold [&_h1]:text-zinc-900 dark:[&_h1]:text-zinc-100 [&_h2]:text-sm [&_h2]:font-semibold [&_h2]:text-zinc-900 dark:[&_h2]:text-zinc-100 [&_h3]:text-sm [&_h3]:font-medium [&_h3]:text-zinc-800 dark:[&_h3]:text-zinc-200 [&_h4]:text-sm [&_h4]:font-medium [&_h4]:text-zinc-800 dark:[&_h4]:text-zinc-200 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:my-0.5 [&_code]:rounded [&_code]:bg-zinc-100 [&_code]:px-1 [&_code]:py-0.5 [&_code]:text-xs dark:[&_code]:bg-zinc-800 [&_hr]:my-4 [&_hr]:border-zinc-200 dark:[&_hr]:border-zinc-700 [&_p]:my-2">
             <div
               dangerouslySetInnerHTML={{
-                __html: insights
-                  .replace(/^### (.*$)/gm, '<h3>$1</h3>')
-                  .replace(/^## (.*$)/gm, '<h2>$1</h2>')
-                  .replace(/^# (.*$)/gm, '<h1>$1</h1>')
-                  .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                  .replace(/\*(.*?)\*/g, '<em>$1</em>')
-                  .replace(/`(.*?)`/g, '<code>$1</code>')
-                  .replace(/^[-*] (.*$)/gm, '<li>$1</li>')
-                  .replace(/(<li>.*<\/li>\n?)+/g, '<ul>$&</ul>')
-                  .replace(/^\d+\. (.*$)/gm, '<li>$1</li>')
-                  .replace(/\n\n/g, '</p><p>')
-                  .replace(/\n/g, '<br/>')
-                  .replace(/^/, '<p>')
-                  .replace(/$/, '</p>'),
+                __html: markdownToHtml(insights),
               }}
             />
           </div>

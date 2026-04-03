@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { StatusBadge } from '@/components/ui/status-badge';
 import { useAuth } from '@/contexts/auth-context';
 import { useI18n } from '@/contexts/i18n-context';
+import { markdownToHtml } from '@/lib/markdown';
 import { aiService } from '@/services/ai.service';
 import { campaignService } from '@/services/campaign.service';
 import type { Campaign, CampaignStatus } from '@/types';
@@ -268,18 +269,9 @@ export default function DashboardPage() {
             ) : aiSummary ? (
               <div className="flex flex-1 flex-col gap-3">
                 <div
-                  className="prose prose-sm max-w-none text-sm leading-relaxed text-zinc-600 dark:text-zinc-300 [&_strong]:text-zinc-900 dark:[&_strong]:text-zinc-100 [&_h2]:text-xs [&_h2]:font-semibold [&_h3]:text-xs [&_h3]:font-medium [&_ul]:list-disc [&_ul]:pl-4 [&_ol]:list-decimal [&_ol]:pl-4 [&_li]:my-0.5 [&_code]:rounded [&_code]:bg-zinc-100 [&_code]:px-1 [&_code]:text-xs dark:[&_code]:bg-zinc-800"
+                  className="prose prose-sm max-w-none text-sm leading-relaxed text-zinc-600 dark:text-zinc-300 [&_strong]:text-zinc-900 dark:[&_strong]:text-zinc-100 [&_h2]:text-xs [&_h2]:font-semibold [&_h3]:text-xs [&_h3]:font-medium [&_h4]:text-xs [&_h4]:font-medium [&_ul]:list-disc [&_ul]:pl-4 [&_ol]:list-decimal [&_ol]:pl-4 [&_li]:my-0.5 [&_code]:rounded [&_code]:bg-zinc-100 [&_code]:px-1 [&_code]:text-xs dark:[&_code]:bg-zinc-800 [&_hr]:my-3 [&_hr]:border-zinc-200 dark:[&_hr]:border-zinc-700 [&_p]:my-1.5"
                   dangerouslySetInnerHTML={{
-                    __html: aiSummary
-                      .replace(/^### (.*$)/gm, '<h3>$1</h3>')
-                      .replace(/^## (.*$)/gm, '<h2>$1</h2>')
-                      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                      .replace(/\*(.*?)\*/g, '<em>$1</em>')
-                      .replace(/`(.*?)`/g, '<code>$1</code>')
-                      .replace(/^[-*] (.*$)/gm, '<li>$1</li>')
-                      .replace(/(<li>.*<\/li>\n?)+/g, '<ul>$&</ul>')
-                      .replace(/\n\n/g, '</p><p>')
-                      .replace(/\n/g, '<br/>'),
+                    __html: markdownToHtml(aiSummary),
                   }}
                 />
                 {aiTips.length > 0 && (
