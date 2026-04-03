@@ -18,9 +18,12 @@ src/
 │   │   ├── login/
 │   │   └── register/
 │   └── (dashboard)/        # Grupo de rotas protegidas
+│       ├── dashboard/      # Página inicial do painel
 │       ├── campaigns/      # CRUD de campanhas
 │       │   ├── new/        # Criar campanha
+│       │   ├── design/     # Design de campanha com IA
 │       │   └── [id]/       # Editar campanha
+│       ├── kpis/           # KPIs e analytics com IA
 │       └── profile/        # Perfil do usuário
 ├── components/
 │   ├── ui/                 # Componentes reutilizáveis (Button, Input, Select, StatusBadge)
@@ -37,6 +40,7 @@ src/
 - **CRUD de Campanhas** — Criar, listar, editar e excluir campanhas
 - **Dark Mode** — Toggle com persistência em localStorage + respeita `prefers-color-scheme`
 - **i18n** — Suporte pt-BR e EN com dicionário tipado, toggle no header
+- **IA (Gemini)** — Design de campanhas e análise de KPIs com inteligência artificial
 - **Responsivo** — Layout adaptável para mobile e desktop
 - **Estados visuais** — Loading, erro, vazio e sucesso em todas as telas
 
