@@ -2,6 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Logo } from '@/components/ui/logo';
 import { useAuth } from '@/contexts/auth-context';
 import { useI18n } from '@/contexts/i18n-context';
 import { authService } from '@/services/auth.service';
@@ -35,13 +36,25 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex flex-1 items-center justify-center bg-zinc-50 dark:bg-black">
-      <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-sm dark:bg-zinc-900">
+    <div className="relative flex flex-1 items-center justify-center overflow-hidden px-4">
+      {/* Background orbs */}
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute -top-32 right-1/4 h-[400px] w-[400px] rounded-full bg-blue-500/10 blur-[100px]" />
+        <div className="absolute -bottom-32 left-1/4 h-[350px] w-[350px] rounded-full bg-violet-500/8 blur-[80px]" />
+      </div>
+
+      <div className="glass noise relative w-full max-w-md rounded-2xl p-8 shadow-xl shadow-black/5 dark:shadow-black/20">
         <div className="mb-8 text-center">
-          <h1 className="text-3xl font-bold text-zinc-900 dark:text-zinc-50">
-            Wher<span className="text-blue-600">Ads</span>
+          <div className="mb-4 flex justify-center">
+            <Logo size={40} />
+          </div>
+          <h1 className="text-2xl font-semibold text-zinc-900 dark:text-white">
+            Wher
+            <span className="bg-gradient-to-r from-blue-500 to-violet-500 bg-clip-text text-transparent">
+              Ads
+            </span>
           </h1>
-          <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
+          <p className="mt-1.5 text-sm text-zinc-500 dark:text-zinc-400">
             {t.auth.loginTitle}
           </p>
         </div>
@@ -82,7 +95,7 @@ export default function LoginPage() {
           {t.auth.noAccount}{' '}
           <Link
             href="/auth/register"
-            className="font-medium text-blue-600 hover:text-blue-700"
+            className="font-medium bg-gradient-to-r from-blue-500 to-violet-500 bg-clip-text text-transparent hover:opacity-80"
           >
             {t.common.createAccount}
           </Link>

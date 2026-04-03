@@ -12,7 +12,7 @@ export default function ProfilePage() {
   return (
     <div className="mx-auto max-w-2xl">
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">
+        <h1 className="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">
           {t.profile.title}
         </h1>
         <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
@@ -20,25 +20,29 @@ export default function ProfilePage() {
         </p>
       </div>
 
-      <div className="rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
+      <div className="glass noise rounded-2xl p-6">
         <div className="flex flex-col gap-4">
           <div>
-            <span className="text-sm font-medium text-zinc-500 dark:text-zinc-400">
+            <span className="text-xs font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
               {t.auth.name}
             </span>
-            <p className="text-zinc-900 dark:text-zinc-50">{user.name}</p>
+            <p className="mt-0.5 text-zinc-900 dark:text-zinc-50">
+              {user.name}
+            </p>
           </div>
           <div>
-            <span className="text-sm font-medium text-zinc-500 dark:text-zinc-400">
+            <span className="text-xs font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
               {t.auth.email}
             </span>
-            <p className="text-zinc-900 dark:text-zinc-50">{user.email}</p>
+            <p className="mt-0.5 text-zinc-900 dark:text-zinc-50">
+              {user.email}
+            </p>
           </div>
           <div>
-            <span className="text-sm font-medium text-zinc-500 dark:text-zinc-400">
+            <span className="text-xs font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
               {t.profile.memberSince}
             </span>
-            <p className="text-zinc-900 dark:text-zinc-50">
+            <p className="mt-0.5 text-zinc-900 dark:text-zinc-50">
               {new Date(user.createdAt).toLocaleDateString(locale, {
                 day: '2-digit',
                 month: 'long',

@@ -1,5 +1,6 @@
 'use client';
 
+import { LogoFull } from '@/components/ui/logo';
 import { useAuth } from '@/contexts/auth-context';
 import { useI18n } from '@/contexts/i18n-context';
 import { useTheme } from '@/contexts/theme-context';
@@ -24,25 +25,22 @@ export function Header() {
   }
 
   return (
-    <header className="border-b border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
+    <header className="glass-strong sticky top-0 z-50">
+      <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6">
         <div className="flex items-center gap-8">
-          <Link
-            href="/campaigns"
-            className="text-xl font-bold text-zinc-900 dark:text-zinc-50"
-          >
-            Wher<span className="text-blue-600">Ads</span>
+          <Link href="/campaigns">
+            <LogoFull />
           </Link>
 
-          <nav className="hidden items-center gap-1 sm:flex">
+          <nav className="hidden items-center gap-0.5 sm:flex">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+                className={`rounded-lg px-3 py-1.5 text-sm font-medium transition-all duration-200 ${
                   pathname.startsWith(item.href)
-                    ? 'bg-blue-50 text-blue-600 dark:bg-blue-900/20'
-                    : 'text-zinc-600 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:bg-zinc-800'
+                    ? 'bg-gradient-to-r from-blue-500/10 to-violet-500/10 text-blue-600 dark:text-blue-400'
+                    : 'text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white'
                 }`}
               >
                 {item.label}
@@ -51,22 +49,22 @@ export function Header() {
           </nav>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           <button
             onClick={() => changeLocale(locale === 'pt-BR' ? 'en' : 'pt-BR')}
-            className="rounded-lg px-2 py-1 text-xs font-medium text-zinc-500 transition-colors hover:bg-zinc-100 dark:text-zinc-400 dark:hover:bg-zinc-800"
+            className="rounded-lg px-2 py-1 text-xs font-medium text-zinc-400 transition-all duration-200 hover:text-zinc-700 dark:hover:text-zinc-200"
             aria-label="Alternar idioma"
           >
             {locale === 'pt-BR' ? 'EN' : 'PT'}
           </button>
           <button
             onClick={toggleTheme}
-            className="rounded-lg p-2 text-zinc-500 transition-colors hover:bg-zinc-100 dark:text-zinc-400 dark:hover:bg-zinc-800"
+            className="rounded-lg p-1.5 text-zinc-400 transition-all duration-200 hover:text-zinc-700 dark:hover:text-zinc-200"
             aria-label={t.common.toggleTheme}
           >
             {theme === 'light' ? (
               <svg
-                className="h-5 w-5"
+                className="h-4 w-4"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -80,7 +78,7 @@ export function Header() {
               </svg>
             ) : (
               <svg
-                className="h-5 w-5"
+                className="h-4 w-4"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -94,12 +92,12 @@ export function Header() {
               </svg>
             )}
           </button>
-          <span className="hidden text-sm text-zinc-600 dark:text-zinc-400 sm:block">
+          <span className="hidden text-sm text-zinc-500 dark:text-zinc-400 sm:block">
             {user?.name}
           </span>
           <button
             onClick={handleLogout}
-            className="rounded-lg px-3 py-2 text-sm font-medium text-zinc-600 transition-colors hover:bg-zinc-100 dark:text-zinc-400 dark:hover:bg-zinc-800"
+            className="rounded-lg px-2.5 py-1.5 text-sm font-medium text-zinc-400 transition-all duration-200 hover:text-zinc-700 dark:hover:text-zinc-200"
           >
             {t.common.logout}
           </button>

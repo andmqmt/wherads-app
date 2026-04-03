@@ -10,17 +10,17 @@ export function Input({ label, error, id, ...props }: InputProps) {
     <div className="flex flex-col gap-1.5">
       <label
         htmlFor={id}
-        className="text-sm font-medium text-zinc-700 dark:text-zinc-300"
+        className="text-xs font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400"
       >
         {label}
       </label>
       <input
         id={id}
-        className={`h-11 rounded-lg border px-3 text-sm transition-colors outline-none
+        className={`h-11 rounded-xl border bg-white/50 px-3.5 text-sm transition-all duration-200 outline-none placeholder:text-zinc-400
           ${
             error
-              ? 'border-red-500 focus:ring-2 focus:ring-red-200'
-              : 'border-zinc-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-100'
+              ? 'border-red-400 focus:ring-2 focus:ring-red-200'
+              : 'border-border-glass focus:border-accent focus:ring-2 focus:ring-blue-500/10 dark:bg-white/5 dark:text-zinc-100 dark:placeholder:text-zinc-500'
           }`}
         {...props}
       />

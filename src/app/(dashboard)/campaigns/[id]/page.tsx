@@ -103,32 +103,14 @@ export default function EditCampaignPage() {
   if (isFetching) {
     return (
       <div className="flex items-center justify-center py-20">
-        <svg
-          className="h-8 w-8 animate-spin text-blue-600"
-          viewBox="0 0 24 24"
-          fill="none"
-        >
-          <circle
-            className="opacity-25"
-            cx="12"
-            cy="12"
-            r="10"
-            stroke="currentColor"
-            strokeWidth="4"
-          />
-          <path
-            className="opacity-75"
-            fill="currentColor"
-            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
-          />
-        </svg>
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-blue-500/20 border-t-blue-500" />
       </div>
     );
   }
 
   if (!campaign && error) {
     return (
-      <div className="rounded-lg bg-red-50 p-4 text-sm text-red-600 dark:bg-red-900/20 dark:text-red-400">
+      <div className="rounded-xl bg-red-500/10 p-4 text-sm text-red-600 dark:text-red-400">
         {error}
       </div>
     );
@@ -137,7 +119,7 @@ export default function EditCampaignPage() {
   return (
     <div className="mx-auto max-w-2xl">
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">
+        <h1 className="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">
           {t.campaigns.editTitle}
         </h1>
         <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
@@ -146,14 +128,14 @@ export default function EditCampaignPage() {
       </div>
 
       {error && (
-        <div className="mb-4 rounded-lg bg-red-50 p-3 text-sm text-red-600 dark:bg-red-900/20 dark:text-red-400">
+        <div className="mb-4 rounded-xl bg-red-500/10 p-3 text-sm text-red-600 dark:text-red-400">
           {error}
         </div>
       )}
 
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col gap-4 rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900"
+        className="glass noise flex flex-col gap-4 rounded-2xl p-6"
       >
         <Input
           id="name"
@@ -167,14 +149,14 @@ export default function EditCampaignPage() {
         <div className="flex flex-col gap-1.5">
           <label
             htmlFor="description"
-            className="text-sm font-medium text-zinc-700 dark:text-zinc-300"
+            className="text-xs font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400"
           >
             {t.campaigns.description}
           </label>
           <textarea
             id="description"
             rows={3}
-            className="rounded-lg border border-zinc-300 px-3 py-2 text-sm outline-none transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-100"
+            className="rounded-xl border border-zinc-200/60 bg-white/50 px-3 py-2 text-sm outline-none transition-all duration-200 focus:border-blue-500/50 focus:ring-2 focus:ring-blue-500/10 dark:border-white/10 dark:bg-white/5 dark:text-zinc-100"
             placeholder="Descreva o objetivo da campanha"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
@@ -225,7 +207,7 @@ export default function EditCampaignPage() {
             type="button"
             onClick={handleGenerateInsights}
             disabled={isGeneratingInsights}
-            className="flex items-center gap-1.5 rounded-full bg-purple-600 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-purple-700 disabled:opacity-50"
+            className="flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-blue-500/10 to-violet-500/10 px-5 py-2.5 text-sm font-medium text-blue-600 transition-all duration-200 hover:from-blue-500/20 hover:to-violet-500/20 disabled:opacity-50 dark:text-blue-400"
           >
             <svg
               className="h-4 w-4"
@@ -249,9 +231,9 @@ export default function EditCampaignPage() {
       </form>
 
       {insights && (
-        <div className="mt-6 rounded-2xl border border-purple-200 bg-purple-50 p-6 dark:border-purple-800 dark:bg-purple-900/20">
+        <div className="glass noise mt-6 rounded-2xl border border-blue-500/20 p-6">
           <div className="mb-4 flex items-center justify-between">
-            <h2 className="flex items-center gap-2 text-lg font-semibold text-purple-900 dark:text-purple-300">
+            <h2 className="flex items-center gap-2 text-lg font-semibold text-zinc-900 dark:text-zinc-100">
               <svg
                 className="h-5 w-5"
                 viewBox="0 0 24 24"
@@ -266,12 +248,12 @@ export default function EditCampaignPage() {
             <button
               type="button"
               onClick={() => setInsights('')}
-              className="text-sm text-purple-600 hover:text-purple-800 dark:text-purple-400 dark:hover:text-purple-300"
+              className="text-sm text-zinc-400 transition-colors hover:text-zinc-700 dark:hover:text-zinc-200"
             >
               {t.ai.close}
             </button>
           </div>
-          <div className="prose prose-sm max-w-none text-purple-900 dark:text-purple-200 [&_h1]:text-purple-900 [&_h2]:text-purple-900 [&_h3]:text-purple-900 [&_strong]:text-purple-900 dark:[&_h1]:text-purple-200 dark:[&_h2]:text-purple-200 dark:[&_h3]:text-purple-200 dark:[&_strong]:text-purple-200">
+          <div className="prose prose-sm max-w-none text-zinc-700 dark:text-zinc-300 [&_strong]:text-zinc-900 dark:[&_strong]:text-zinc-100">
             <div
               dangerouslySetInnerHTML={{
                 __html: insights
