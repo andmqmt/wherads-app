@@ -1,4 +1,5 @@
 import { AuthProvider } from '@/contexts/auth-context';
+import { I18nProvider } from '@/contexts/i18n-context';
 import { ThemeProvider } from '@/contexts/theme-context';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
@@ -32,9 +33,11 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col">
-        <ThemeProvider>
-          <AuthProvider>{children}</AuthProvider>
-        </ThemeProvider>
+        <I18nProvider>
+          <ThemeProvider>
+            <AuthProvider>{children}</AuthProvider>
+          </ThemeProvider>
+        </I18nProvider>
       </body>
     </html>
   );
