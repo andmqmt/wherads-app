@@ -17,6 +17,7 @@ export function Header() {
   const navItems = [
     { href: '/dashboard', label: t.dashboard.title },
     { href: '/campaigns', label: t.campaigns.title },
+    { href: '/kpis', label: t.kpis.title },
     { href: '/profile', label: t.profile.title },
   ];
 
@@ -155,22 +156,21 @@ export function Header() {
             }
           />
           <TabItem
-            href="/campaigns/new"
-            label=""
-            active={pathname === '/campaigns/new'}
-            isCreate
+            href="/kpis"
+            label={t.kpis.title}
+            active={pathname === '/kpis'}
             icon={
               <svg
                 className="h-5 w-5"
-                fill="none"
                 viewBox="0 0 24 24"
+                fill="none"
                 stroke="currentColor"
-                strokeWidth={2}
+                strokeWidth={1.5}
               >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  d="M12 4.5v15m7.5-7.5h-15"
+                  d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941"
                 />
               </svg>
             }

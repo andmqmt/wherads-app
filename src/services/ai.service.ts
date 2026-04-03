@@ -50,6 +50,48 @@ type CampaignDesign = {
   kpis: { metric: string; target: string }[];
 };
 
+type KpiCampaignItem = {
+  name: string;
+  status: string;
+  budget: number;
+  description?: string;
+  startDate?: string;
+  endDate?: string;
+};
+
+type GenerateKpisRequest = {
+  campaigns: KpiCampaignItem[];
+};
+
+export type KpiAnalytics = {
+  overview: {
+    totalBudget: number;
+    activeCampaigns: number;
+    avgBudget: number;
+    healthScore: number;
+  };
+  metrics: {
+    name: string;
+    value: string;
+    trend: 'up' | 'down' | 'stable';
+    trendValue: string;
+    description: string;
+  }[];
+  trendData: {
+    label: string;
+    series: { name: string; data: number[] }[];
+    labels: string[];
+  }[];
+  projections: {
+    metric: string;
+    current: string;
+    projected: string;
+    confidence: string;
+    timeframe: string;
+  }[];
+  recommendations: string[];
+};
+
 export const aiService = {
   getStatus: () => api.get<{ available: boolean }>('/ai/status'),
 
@@ -64,4 +106,7 @@ export const aiService = {
 
   designCampaign: (data: DesignCampaignRequest) =>
     api.post<CampaignDesign>('/ai/design-campaign', data),
+
+  generateKpis: (data: GenerateKpisRequest) =>
+    api.post<KpiAnalytics>('/ai/kpis', data),
 };
