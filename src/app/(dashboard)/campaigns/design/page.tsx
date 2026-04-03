@@ -3,6 +3,12 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useI18n } from '@/contexts/i18n-context';
+import {
+  exportToGoogleAds,
+  exportToLinkedInAds,
+  exportToMetaAds,
+  exportToTikTokAds,
+} from '@/lib/export-campaign';
 import { aiService } from '@/services/ai.service';
 import Link from 'next/link';
 import { useState, type FormEvent } from 'react';
@@ -494,6 +500,93 @@ export default function DesignCampaignPage() {
                   </p>
                 </div>
               ))}
+            </div>
+          </div>
+
+          {/* Export to Platforms */}
+          <div className="glass rounded-2xl p-6">
+            <h3 className="mb-2 flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
+              <svg
+                className="h-4 w-4"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"
+                />
+              </svg>
+              {t.design.exportTitle}
+            </h3>
+            <p className="mb-4 text-xs text-zinc-400 dark:text-zinc-500">
+              {t.design.exportSubtitle}
+            </p>
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+              <button
+                type="button"
+                onClick={() => exportToGoogleAds(design)}
+                className="flex flex-col items-center gap-2 rounded-xl border border-zinc-200/50 bg-white/30 p-4 transition-all hover:border-blue-500/30 hover:bg-blue-500/5 dark:border-white/5 dark:bg-white/5 dark:hover:border-blue-500/20"
+              >
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#4285F4]/10">
+                  <span className="text-lg font-bold text-[#4285F4]">G</span>
+                </div>
+                <span className="text-xs font-medium text-zinc-700 dark:text-zinc-300">
+                  {t.design.exportGoogle}
+                </span>
+                <span className="rounded-full bg-zinc-100 px-2 py-0.5 text-[9px] text-zinc-500 dark:bg-zinc-800 dark:text-zinc-400">
+                  {t.design.exportCsv}
+                </span>
+              </button>
+              <button
+                type="button"
+                onClick={() => exportToMetaAds(design)}
+                className="flex flex-col items-center gap-2 rounded-xl border border-zinc-200/50 bg-white/30 p-4 transition-all hover:border-blue-500/30 hover:bg-blue-500/5 dark:border-white/5 dark:bg-white/5 dark:hover:border-blue-500/20"
+              >
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#0081FB]/10">
+                  <span className="text-lg font-bold text-[#0081FB]">M</span>
+                </div>
+                <span className="text-xs font-medium text-zinc-700 dark:text-zinc-300">
+                  {t.design.exportMeta}
+                </span>
+                <span className="rounded-full bg-zinc-100 px-2 py-0.5 text-[9px] text-zinc-500 dark:bg-zinc-800 dark:text-zinc-400">
+                  {t.design.exportJson}
+                </span>
+              </button>
+              <button
+                type="button"
+                onClick={() => exportToTikTokAds(design)}
+                className="flex flex-col items-center gap-2 rounded-xl border border-zinc-200/50 bg-white/30 p-4 transition-all hover:border-blue-500/30 hover:bg-blue-500/5 dark:border-white/5 dark:bg-white/5 dark:hover:border-blue-500/20"
+              >
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#000000]/10 dark:bg-white/10">
+                  <span className="text-lg font-bold text-zinc-900 dark:text-white">
+                    T
+                  </span>
+                </div>
+                <span className="text-xs font-medium text-zinc-700 dark:text-zinc-300">
+                  {t.design.exportTikTok}
+                </span>
+                <span className="rounded-full bg-zinc-100 px-2 py-0.5 text-[9px] text-zinc-500 dark:bg-zinc-800 dark:text-zinc-400">
+                  {t.design.exportJson}
+                </span>
+              </button>
+              <button
+                type="button"
+                onClick={() => exportToLinkedInAds(design)}
+                className="flex flex-col items-center gap-2 rounded-xl border border-zinc-200/50 bg-white/30 p-4 transition-all hover:border-blue-500/30 hover:bg-blue-500/5 dark:border-white/5 dark:bg-white/5 dark:hover:border-blue-500/20"
+              >
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#0A66C2]/10">
+                  <span className="text-lg font-bold text-[#0A66C2]">in</span>
+                </div>
+                <span className="text-xs font-medium text-zinc-700 dark:text-zinc-300">
+                  {t.design.exportLinkedIn}
+                </span>
+                <span className="rounded-full bg-zinc-100 px-2 py-0.5 text-[9px] text-zinc-500 dark:bg-zinc-800 dark:text-zinc-400">
+                  {t.design.exportCsv}
+                </span>
+              </button>
             </div>
           </div>
 
