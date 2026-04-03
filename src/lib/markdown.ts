@@ -4,6 +4,14 @@ export function markdownToHtml(md: string): string {
   let inList: 'ul' | 'ol' | null = null;
   let paragraph: string[] = [];
 
+  function escapeHtml(text: string): string {
+    return text
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
   function flushParagraph() {
     if (paragraph.length > 0) {
       html.push(`<p>${paragraph.join('<br/>')}</p>`);
@@ -19,7 +27,7 @@ export function markdownToHtml(md: string): string {
   }
 
   function inlineFormat(text: string): string {
-    return text
+    return escapeHtml(text)
       .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
       .replace(/(?<!\*)\*(?!\*)(.+?)(?<!\*)\*(?!\*)/g, '<em>$1</em>')
       .replace(/`(.*?)`/g, '<code>$1</code>');

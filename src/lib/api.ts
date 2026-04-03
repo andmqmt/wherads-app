@@ -62,9 +62,6 @@ export const api = {
     headers?: Record<string, string>,
   ) => request<T>(endpoint, { method: 'POST', body, headers }),
 
-  put: <T>(endpoint: string, body: unknown, headers?: Record<string, string>) =>
-    request<T>(endpoint, { method: 'PUT', body, headers }),
-
   patch: <T>(
     endpoint: string,
     body: unknown,
