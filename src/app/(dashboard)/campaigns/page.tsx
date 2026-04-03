@@ -60,9 +60,27 @@ export default function CampaignsPage() {
             {t.campaigns.subtitle}
           </p>
         </div>
-        <Link href="/campaigns/new">
-          <Button>{t.campaigns.newCampaign}</Button>
-        </Link>
+        <div className="flex items-center gap-3">
+          <Link href="/campaigns/design">
+            <Button variant="secondary">
+              <span className="flex items-center gap-1.5">
+                <svg
+                  className="h-4 w-4"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
+                </svg>
+                {t.design.title}
+              </span>
+            </Button>
+          </Link>
+          <Link href="/campaigns/new">
+            <Button>{t.campaigns.newCampaign}</Button>
+          </Link>
+        </div>
       </div>
 
       {error && (
