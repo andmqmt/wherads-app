@@ -213,7 +213,7 @@ export default function DesignCampaignPage() {
               </div>
             </div>
             <Link
-              href={`/campaigns/new?name=${encodeURIComponent(design.campaignName)}`}
+              href={`/campaigns/new?${new URLSearchParams({ name: design.campaignName, description: `${design.regions.map((r) => r.name).join(', ')} | ${design.audience.map((a) => a.segment).join(', ')} | ${design.channels.map((c) => c.name).join(', ')}`, budget: String(design.priceRanges.reduce((sum, pr) => sum + pr.minBudget, 0)) }).toString()}`}
               className="inline-flex items-center gap-1.5 rounded-lg bg-gradient-to-r from-blue-500/10 to-violet-500/10 px-4 py-2 text-sm font-medium text-blue-600 transition-all hover:from-blue-500/20 hover:to-violet-500/20 dark:text-blue-400"
             >
               {t.design.createFromDesign}

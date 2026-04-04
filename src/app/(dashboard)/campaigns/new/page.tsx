@@ -5,16 +5,19 @@ import { Input } from '@/components/ui/input';
 import { useI18n } from '@/contexts/i18n-context';
 import { aiService } from '@/services/ai.service';
 import { campaignService } from '@/services/campaign.service';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useState, type FormEvent } from 'react';
 
 export default function NewCampaignPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { t } = useI18n();
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
+  const [name, setName] = useState(searchParams.get('name') ?? '');
+  const [description, setDescription] = useState(
+    searchParams.get('description') ?? '',
+  );
   const [keywords, setKeywords] = useState('');
-  const [budget, setBudget] = useState('');
+  const [budget, setBudget] = useState(searchParams.get('budget') ?? '');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [error, setError] = useState('');
